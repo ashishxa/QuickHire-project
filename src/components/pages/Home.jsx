@@ -174,7 +174,7 @@ export default function Home(){
           <a href="job-single.html" />
           <div className="job-listing-logo">
             <img
-              src="images/job_logo_1.jpg"
+              src="/assets/images/job_logo_1.jpg"
               alt="Free Website Template by Free-Template.co"
               className="img-fluid"
             />
@@ -196,7 +196,7 @@ export default function Home(){
           <a href="job-single.html" />
           <div className="job-listing-logo">
             <img
-              src="images/job_logo_2.jpg"
+              src="/assets/images/job_logo_2.jpg"
               alt="Free Website Template by Free-Template.co"
               className="img-fluid"
             />
@@ -218,7 +218,7 @@ export default function Home(){
           <a href="job-single.html" />
           <div className="job-listing-logo">
             <img
-              src="images/job_logo_3.jpg"
+              src="/assets/images/job_logo_3.jpg"
               alt="Free Website Template by Free-Template.co"
               className="img-fluid"
             />
@@ -240,7 +240,7 @@ export default function Home(){
           <a href="job-single.html" />
           <div className="job-listing-logo">
             <img
-              src="images/job_logo_4.jpg"
+              src="/assets/images/job_logo_4.jpg"
               alt="Free Website Template by Free-Template.co"
               className="img-fluid"
             />
@@ -262,7 +262,7 @@ export default function Home(){
           <a href="job-single.html" />
           <div className="job-listing-logo">
             <img
-              src="images/job_logo_5.jpg"
+              src="/assets/images/job_logo_5.jpg"
               alt="Free Website Template by Free-Template.co"
               className="img-fluid"
             />
@@ -284,7 +284,7 @@ export default function Home(){
           <a href="job-single.html" />
           <div className="job-listing-logo">
             <img
-              src="images/job_logo_1.jpg"
+              src="/assets/images/job_logo_1.jpg"
               alt="Free Website Template by Free-Template.co"
               className="img-fluid"
             />
@@ -306,7 +306,7 @@ export default function Home(){
           <a href="job-single.html" />
           <div className="job-listing-logo">
             <img
-              src="images/job_logo_2.jpg"
+              src="/assets/images/job_logo_2.jpg"
               alt="Free Website Template by Free-Template.co"
               className="img-fluid"
             />
@@ -388,56 +388,56 @@ export default function Home(){
         </div>
         <div className="col-6 col-lg-3 col-md-6 text-center">
           <img
-            src="images/logo_mailchimp.svg"
+            src="/assets/images/logo_mailchimp.svg"
             alt="Image"
             className="img-fluid logo-1"
           />
         </div>
         <div className="col-6 col-lg-3 col-md-6 text-center">
           <img
-            src="images/logo_paypal.svg"
+            src="/assets/images/logo_paypal.svg"
             alt="Image"
             className="img-fluid logo-2"
           />
         </div>
         <div className="col-6 col-lg-3 col-md-6 text-center">
           <img
-            src="images/logo_stripe.svg"
+            src="/assets/images/logo_stripe.svg"
             alt="Image"
             className="img-fluid logo-3"
           />
         </div>
         <div className="col-6 col-lg-3 col-md-6 text-center">
           <img
-            src="images/logo_visa.svg"
+            src="/assets/images/logo_visa.svg"
             alt="Image"
             className="img-fluid logo-4"
           />
         </div>
         <div className="col-6 col-lg-3 col-md-6 text-center">
           <img
-            src="images/logo_apple.svg"
+            src="/assets/images/logo_apple.svg"
             alt="Image"
             className="img-fluid logo-5"
           />
         </div>
         <div className="col-6 col-lg-3 col-md-6 text-center">
           <img
-            src="images/logo_tinder.svg"
+            src="/assets/images/logo_tinder.svg"
             alt="Image"
             className="img-fluid logo-6"
           />
         </div>
         <div className="col-6 col-lg-3 col-md-6 text-center">
           <img
-            src="images/logo_sony.svg"
+            src="/assets/images/logo_sony.svg"
             alt="Image"
             className="img-fluid logo-7"
           />
         </div>
         <div className="col-6 col-lg-3 col-md-6 text-center">
           <img
-            src="images/logo_airbnb.svg"
+            src="/assets/images/logo_airbnb.svg"
             alt="Image"
             className="img-fluid logo-8"
           />
@@ -464,7 +464,7 @@ export default function Home(){
           </div>
           <div className="col-lg-6 align-self-end text-center text-lg-right">
             <img
-              src="images/person_transparent_2.png"
+              src="/assets/images/person_transparent_2.png"
               alt="Image"
               className="img-fluid mb-0"
             />
@@ -488,7 +488,7 @@ export default function Home(){
           </div>
           <div className="col-lg-6 align-self-end text-center text-lg-right">
             <img
-              src="images/person_transparent.png"
+              src="/assets/images/person_transparent.png"
               alt="Image"
               className="img-fluid mb-0"
             />
@@ -522,7 +522,7 @@ export default function Home(){
         </div>
         <div className="col-md-6 ml-auto align-self-end">
           <img
-            src="images/apps.png"
+            src="/assets/images/apps.png"
             alt="Free Website Template by Free-Template.co"
             className="img-fluid"
           />

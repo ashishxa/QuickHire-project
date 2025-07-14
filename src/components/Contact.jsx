@@ -99,15 +99,15 @@ export default function Contact(){
           <div className="p-4 mb-3 bg-white">
             <p className="mb-0 font-weight-bold">Address</p>
             <p className="mb-4">
-              203 Fake St. Mountain View, San Francisco, California, USA
+              39 Bashirpura,Jalandhar city,india
             </p>
             <p className="mb-0 font-weight-bold">Phone</p>
             <p className="mb-4">
-              <a href="#">+1 232 3235 324</a>
+              <a href="#">+91 8349308880</a>
             </p>
             <p className="mb-0 font-weight-bold">Email Address</p>
             <p className="mb-0">
-              <a href="#">youremail@domain.com</a>
+              <a href="#">ashishkumar68865@gmail.com</a>
             </p>
           </div>
         </div>

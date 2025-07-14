@@ -7,7 +7,7 @@ export default function Header() {
         <div className="container-fluid">
           <div className="row align-items-center">
             <div className="site-logo col-6">
-              <Link to="/">JobBoard</Link>
+              <Link to="/">Quick Hire</Link>
             </div>
             <nav className="mx-auto site-navigation">
               <ul className="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">

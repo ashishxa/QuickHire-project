@@ -1,4 +1,28 @@
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
+
 export default function Login(){
+    const [email, setEmail]=useState("janki@gmail.com")
+    const [password, setPassword]=useState("")
+    const changeEmail=(e)=>{
+      console.log(e);
+      
+      setEmail(e.target.value)
+    }
+    
+
+    let nav= useNavigate()
+    const handleForm=(e)=>{
+      e.preventDefault()  
+      if(email=="admin@gmail.com" && password=="2025"){
+        toast.success("Login successfully!!")
+        nav("/")
+      }else{
+        toast.error("Invalid credentials");
+      
+      }
+    }
     return(
         <>
         <div className="site-wrap">
@@ -37,8 +61,8 @@ export default function Login(){
     <div className="container">
       <div className="row">
         <div className="col-lg-6 mb-5">
-          <h2 className="mb-4">Sign Up To JobBoard</h2>
-          <form action="#" className="p-4 border rounded">
+          <h2 className="mb-4">Sign Up To Quick Hire</h2>
+          <form action="#" className="p-4 border rounded" onSubmit={handleForm}>
             <div className="row form-group">
               <div className="col-md-12 mb-3 mb-md-0">
                 <label className="text-black" htmlFor="fname">
@@ -62,6 +86,7 @@ export default function Login(){
                   id="fname"
                   className="form-control"
                   placeholder="Password"
+                  
                 />
               </div>
             </div>
@@ -90,8 +115,8 @@ export default function Login(){
           </form>
         </div>
         <div className="col-lg-6">
-          <h2 className="mb-4">Log In To JobBoard</h2>
-          <form action="#" className="p-4 border rounded">
+          <h2 className="mb-4">Log In To Quick Hire</h2>
+          <form action="#" className="p-4 border rounded" onSubmit={handleForm}>
             <div className="row form-group">
               <div className="col-md-12 mb-3 mb-md-0">
                 <label className="text-black" htmlFor="fname">
@@ -102,6 +127,8 @@ export default function Login(){
                   id="fname"
                   className="form-control"
                   placeholder="Email address"
+                  value={email}
+                  onChange={changeEmail}
                 />
               </div>
             </div>
@@ -115,7 +142,11 @@ export default function Login(){
                   id="fname"
                   className="form-control"
                   placeholder="Password"
-                />
+                  value={password}
+                            onChange={(e)=>{
+                              setPassword(e.target.value)
+                            }}
+                          />
               </div>
             </div>
             <div className="row form-group">

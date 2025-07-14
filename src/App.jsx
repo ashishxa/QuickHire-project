@@ -17,7 +17,7 @@ import Testimonials from "./components/pages/Testimonials";
 
 import Error from "./components/pages/Error";
 import Layout from "./components/layouts/Layout";
-
+import { ToastContainer } from "react-toastify"
 
 function App() {
   return (

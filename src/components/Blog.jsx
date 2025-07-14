@@ -1,7 +1,7 @@
 export default function Blog() {
     return(
         <>
-  <div id="overlayer" />
+ 
   <div className="site-wrap">
     <div className="site-mobile-menu site-navbar-target">
       <div className="site-mobile-menu-header">

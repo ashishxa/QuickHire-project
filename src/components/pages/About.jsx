@@ -41,7 +41,7 @@
     <div className="container">
       <div className="row mb-5 justify-content-center">
         <div className="col-md-7 text-center">
-          <h2 className="section-title mb-2 text-white">JobBoard Site Stats</h2>
+          <h2 className="section-title mb-2 text-white">Quick Hire Site Stats</h2>
           <p className="lead text-white">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita
             unde officiis recusandae sequi excepturi corrupti.
