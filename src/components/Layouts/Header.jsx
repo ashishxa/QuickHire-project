@@ -66,8 +66,8 @@ export default function Header() {
                   <Link to="/contact">Contact</Link>
                 </li>
                 <li className="d-lg-none">
-                  <Link to="/postjob">
-                    <span className="mr-2">+</span> Post a Job
+                  <Link to="/Register">
+                    <span className="mr-2">+</span> Register
                   </Link>
                 </li>
                 <li className="d-lg-none">
@@ -78,11 +78,11 @@ export default function Header() {
             <div className="right-cta-menu text-right d-flex align-items-center col-6">
               <div className="ml-auto">
                 <Link
-                  to="/postjob"
+                  to="/Register"
                   className="btn btn-outline-white border-width-2 d-none d-lg-inline-block"
                 >
                   <span className="mr-2 icon-add" />
-                  Post a Job
+                  Register
                 </Link>
                 <Link
                   to="/login"
