@@ -1,7 +1,50 @@
-export default function(){
+import { createUserWithEmailAndPassword } from "firebase/auth"
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import { auth, db } from "../../Firebase"
+import { toast } from "react-toastify"
+import { doc, setDoc, Timestamp } from "firebase/firestore"
+
+export default function Register(){
+  const [name, setName]=useState("")
+  const [email, setEmail]=useState("")
+  const [password, setPassword]=useState("")
+  const [contact, setContact]=useState("")
+  const handleForm=(e)=>{
+    e.preventDefault()
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCred)=>{
+      let userId=userCred.user.uid
+      saveData(userId)
+    })
+    .catch((err)=>{
+      toast.error(err.message)
+    })
+  }
+
+  const saveData=async (userId)=>{
+    try{
+      let data={
+        name:name, 
+        email:email,
+        contact:contact,
+        userId:userId,
+        userType:3, 
+        status:true, 
+        createdAt:Timestamp.now()
+      }
+     
+      await setDoc(doc(db, "users",userId),data)
+      toast.success("Register successfully!!")
+    }
+    catch(err){
+      toast.error(err.message)
+    }
+  }
+
     return(
         <>
-       <section
+          <section
     className="section-hero overlay inner-page bg-image"
     style={{ backgroundImage: 'url(/assets/images/hero_1.jpg)' }}
     id="home-section"
@@ -21,8 +64,8 @@ export default function(){
     </div>
   </section>
             <div className="container my-5">
-               
-            
+                
+                {/* contact form  */}
                      <div className="row no-gutters">
               <div className="col-md-7">
                 <div className="contact-wrap w-100 p-md-5 p-4">
@@ -32,6 +75,7 @@ export default function(){
                     id="contactForm"
                     name="contactForm"
                     className="contactForm"
+                    onSubmit={handleForm}
                   >
                     <div className="row">
                      <div className="col-md-12">
@@ -45,6 +89,10 @@ export default function(){
                             name="email"
                             id="email"
                             placeholder="Full Name"
+                            value={name}
+                            onChange={(e)=>{
+                              setName(e.target.value)
+                            }}
                           />
                         </div>
                       </div>
@@ -59,6 +107,10 @@ export default function(){
                             name="email"
                             id="email"
                             placeholder="Email"
+                             value={email}
+                            onChange={(e)=>{
+                              setEmail(e.target.value)
+                            }}
                           />
                         </div>
                       </div>
@@ -73,6 +125,10 @@ export default function(){
                             name="subject"
                             id="subject"
                             placeholder="Password"
+                             value={password}
+                            onChange={(e)=>{
+                              setPassword(e.target.value)
+                            }}
                           />
                         </div>
                       </div>
@@ -89,6 +145,10 @@ export default function(){
                             placeholder="Contact"
                             minLength={10}
                             maxLength={10}
+                            value={contact}
+                            onChange={(e)=>{
+                              setContact(e.target.value)
+                            }}
                           />
                         </div>
                       </div>
@@ -103,7 +163,7 @@ export default function(){
                         </div>
                       </div>
                     </div>
-                  </form>
+                  </form><div>Already have an account <Link to={"/login"}>Login Here!</Link></div>
                 </div>
               </div>
               <div className="col-md-5 d-flex align-items-stretch">
@@ -117,5 +177,3 @@ export default function(){
         </>
     )
 }
-    
-    
