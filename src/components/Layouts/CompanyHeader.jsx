@@ -46,29 +46,19 @@ export default function CompanyHeader(){
                   </Link>
                 </li>
                 <li>
-                  <Link to="/dashboard" className="active">
+                  <Link to="/dashboard" >
                     Dashboard
                   </Link>
                 </li>
-                <li className="has-children">
-                  <Link to="/recentjob">Recent Jobs</Link>
-                </li>
-                <li className="has-children">
-                  <Link to="/managejob">Manage Jobs</Link>
-                  <ul className="dropdown">
-                    <li>
-                      <Link to="/managecompany">Manage Company</Link>
-                    </li>
-                     <li>
-                      <Link to="/manageuser">Manage User</Link>
-                    </li>
-                    {/* You do not have a ServiceSingle route, update as needed */}
-                    
-                   
-                  </ul>
+                <li >
+                  <Link to="jobs/add">Add Jobs</Link>
                 </li>
                 <li>
-                  <Link to="/viewapplition">Blog</Link>
+                  <Link to="/managejob">Manage Jobs</Link>
+                  
+                </li>
+                <li>
+                  <Link to="/viewapp">View App</Link>
                 </li>
                 <li>
                   <Link to="/contact">Contact</Link>

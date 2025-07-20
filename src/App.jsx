@@ -26,6 +26,8 @@ import ManageCompany from "./components/pages/ManageCompany";
 import ManageJob from "./components/pages/ManageJob";
 import ManageUser from "./components/pages/ManageUser";
 import ViewApplication from "./components/pages/ViewApplication";
+import AddJobs from "./components/company/jobs/AddJobs";
+import CompanyLayout from "./components/Layouts/CompanyLayout";
 
 
 
@@ -67,7 +69,10 @@ function App() {
             <Route path="viewapplication" element={<ViewApplication/>}/>
         </Route>
         
-        
+         <Route path="/company" element={<CompanyLayout/>}>
+        <Route path="jobs/add" element={<AddJobs/>}/>
+
+        </Route>
 
 
         
