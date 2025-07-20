@@ -19,6 +19,15 @@ import Layout from "./components/layouts/Layout";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import { ToastContainer } from "react-toastify";
+import AdminLayout from "./components/Layouts/AdminLayout";
+import Dashboard from "./components/pages/AdminDashboard";
+import RecentJob from "./components/pages/RecentJob";
+import ManageCompany from "./components/pages/ManageCompany";
+import ManageJob from "./components/pages/ManageJob";
+import ManageUser from "./components/pages/ManageUser";
+import ViewApplication from "./components/pages/ViewApplication";
+
+
 
 
 
@@ -48,6 +57,20 @@ function App() {
           <Route path="testimonials" element={<Testimonials />} />
           
         </Route>
+        {/* <Route path="/admin" element={<Admin/>}> */}
+        <Route path="/admin" element={<AdminLayout/>}>
+            <Route index element={<Dashboard/>}/>
+            <Route path="recentjob" element={<RecentJob/>}/>
+            <Route path="managecompany" element={<ManageCompany/>}/>
+            <Route path="managejob" element={<ManageJob/>}/>
+            <Route path="manageuser" element={<ManageUser/>}/>
+            <Route path="viewapplication" element={<ViewApplication/>}/>
+        </Route>
+        
+        
+
+
+        
         
         <Route path="*" element={<Error />} />
       </Routes>

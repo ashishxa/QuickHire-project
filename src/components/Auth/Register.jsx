@@ -1,9 +1,9 @@
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { useState } from "react"
-import { Link } from "react-router-dom"
 import { auth, db } from "../../Firebase"
 import { toast } from "react-toastify"
-import { doc, setDoc, Timestamp } from "firebase/firestore"
+import { doc, getDoc, setDoc, Timestamp } from "firebase/firestore"
+import { useNavigate } from "react-router-dom"
 
 export default function Register(){
   const [name, setName]=useState("")
@@ -36,15 +36,32 @@ export default function Register(){
      
       await setDoc(doc(db, "users",userId),data)
       toast.success("Register successfully!!")
+      getUserData(userId)
     }
     catch(err){
       toast.error(err.message)
     }
   }
+  const nav=useNavigate()
+    const getUserData=async (userId)=>{
+     let userDoc=await getDoc(doc(db,"users", userId))
+     let userData=userDoc.data()
+     sessionStorage.setItem("name", userData?.name)
+     sessionStorage.setItem("email", userData?.email)
+     sessionStorage.setItem("userType", userData?.userType)
+     sessionStorage.setItem("userId", userId)
+     sessionStorage.setItem("isLogin", true)
+     toast.success("Login successfully")
+     if(userData?.userType==1){
+      nav("/admin")
+     }else{
+      nav("/")
+     }
+    }
 
     return(
         <>
-          <section
+        <section
     className="section-hero overlay inner-page bg-image"
     style={{ backgroundImage: 'url(/assets/images/hero_1.jpg)' }}
     id="home-section"
@@ -52,11 +69,11 @@ export default function Register(){
     <div className="container">
       <div className="row">
         <div className="col-md-7">
-          <h1 className="text-white font-weight-bold">Register</h1>
+          <h1 className="text-white font-weight-bold">Gallery</h1>
           <div className="custom-breadcrumbs">
             <a href="index.html">Home</a> <span className="mx-2 slash">/</span>
             <span className="text-white">
-              <strong>Register</strong>
+              <strong>Gallery</strong>
             </span>
           </div>
         </div>
@@ -163,7 +180,7 @@ export default function Register(){
                         </div>
                       </div>
                     </div>
-                  </form><div>Already have an account <Link to={"/login"}>Login Here!</Link></div>
+                  </form>
                 </div>
               </div>
               <div className="col-md-5 d-flex align-items-stretch">
