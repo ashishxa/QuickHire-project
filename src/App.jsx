@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Router } from "react-router-dom";
 import Home from "./components/pages/Home";
 import Blog from "./components/Blog";
 import Blogsingle from "./components/Blogsingle";
@@ -20,14 +20,14 @@ import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import { ToastContainer } from "react-toastify";
 import AdminLayout from "./components/Layouts/AdminLayout";
-import Dashboard from "./components/pages/AdminDashboard";
-import RecentJob from "./components/pages/RecentJob";
-import ManageCompany from "./components/pages/ManageCompany";
-import ManageJob from "./components/pages/ManageJob";
-import ManageUser from "./components/pages/ManageUser";
-import ViewApplication from "./components/pages/ViewApplication";
+
+
 import AddJobs from "./components/company/jobs/AddJobs";
 import CompanyLayout from "./components/Layouts/CompanyLayout";
+import CompanyDashboard from "./components/pages/CompanyDashboard";
+import ManageJobs from "./components/company/jobs/ManageJobs";
+import ManageUser from "./components/company/jobs/ManageUser";
+import Dashborad from "./components/Auth/admin/Dashboard";
 
 
 
@@ -61,16 +61,16 @@ function App() {
         </Route>
         {/* <Route path="/admin" element={<Admin/>}> */}
         <Route path="/admin" element={<AdminLayout/>}>
-            <Route index element={<Dashboard/>}/>
-            <Route path="recentjob" element={<RecentJob/>}/>
-            <Route path="managecompany" element={<ManageCompany/>}/>
-            <Route path="managejob" element={<ManageJob/>}/>
-            <Route path="manageuser" element={<ManageUser/>}/>
-            <Route path="viewapplication" element={<ViewApplication/>}/>
+            <Route index element={<Dashborad/>}/>
+        
+           
         </Route>
         
          <Route path="/company" element={<CompanyLayout/>}>
+         <Route index element={<CompanyDashboard/>}/>
         <Route path="jobs/add" element={<AddJobs/>}/>
+        <Route path="managejobs" element={<ManageJobs/>}/>
+        <Route path="manageuser" element={<ManageUser/>}/>
 
         </Route>
 

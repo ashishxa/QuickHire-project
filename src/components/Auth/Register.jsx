@@ -69,11 +69,11 @@ export default function Register(){
     <div className="container">
       <div className="row">
         <div className="col-md-7">
-          <h1 className="text-white font-weight-bold">Gallery</h1>
+          <h1 className="text-white font-weight-bold">Register</h1>
           <div className="custom-breadcrumbs">
             <a href="index.html">Home</a> <span className="mx-2 slash">/</span>
             <span className="text-white">
-              <strong>Gallery</strong>
+              <strong>Register</strong>
             </span>
           </div>
         </div>

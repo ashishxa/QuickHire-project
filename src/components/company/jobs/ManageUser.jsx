@@ -1,4 +1,4 @@
-export default function RecentJob(){
+export default function ManageUser (){
     return(
         <>
         </>

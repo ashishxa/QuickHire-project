@@ -29,7 +29,7 @@ export default function CompanyHeader(){
     }
   return (
     <>
-      <header className="site-navbar mt-3">
+     <header className="site-navbar mt-3">
         <div className="container-fluid">
           <div className="row align-items-center">
             <div className="site-logo col-6">
@@ -46,22 +46,33 @@ export default function CompanyHeader(){
                   </Link>
                 </li>
                 <li>
-                  <Link to="/dashboard" >
+                  <Link to="/dashboard">
                     Dashboard
                   </Link>
                 </li>
                 <li >
                   <Link to="jobs/add">Add Jobs</Link>
                 </li>
-                <li>
-                  <Link to="/managejob">Manage Jobs</Link>
-                  
+                <li className="has-children">
+                  <Link to="managejobs">Manage Jobs</Link>
+                  <ul className="dropdown">
+                    <li>
+                      <Link to="managecompany">Manage Company</Link>
+                    </li>
+                     <li>
+                      <Link to="manageuser">Manage User</Link>
+                    </li>
+                     <li>
+                  <Link to="viewapplition">View Application</Link>
                 </li>
-                <li>
-                  <Link to="/viewapp">View App</Link>
+                    {/* You do not have a ServiceSingle route, update as needed */}
+                    
+                   
+                  </ul>
                 </li>
+              
                 <li>
-                  <Link to="/contact">Contact</Link>
+                  <Link to="/login">Logout</Link>
                 </li>
                
               </ul>

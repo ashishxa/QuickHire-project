@@ -86,71 +86,68 @@ export default function Login() {
         </div>
       </section>
 
-      <div className="container my-3">
-        <div className="row no-gutters">
-          <div className="col-md-7">
-            <div className="contact-wrap w-100 p-md-5 p-4">
-              <h3 className="mb-4">Login Quick Hire</h3>
-              <form onSubmit={handleForm} className="contactForm">
-                <div className="row">
-                  <div className="col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="email">Email Address</label>
-                      <input
-                        type="email"
-                        className="form-control"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                    </div>
-                  </div>
+      <div className="container my-5">
+  <div className="row justify-content-center">
+    <div className="col-md-6">
+      <div className="contact-wrap p-md-5 p-4 shadow rounded bg-white">
+        <h3 className="mb-4 text-center">Login Quick Hire</h3>
+        <form onSubmit={handleForm} className="contactForm">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="form-group">
+                <label htmlFor="email">Email Address</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+            </div>
 
-                  <div className="col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="password">Password</label>
-                      <input
-                        type="password"
-                        className="form-control"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </div>
-                  </div>
+            <div className="col-md-12">
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+            </div>
 
-                  <div className="col-md-12">
-                    <div className="form-group">
-                      <input
-                        type="submit"
-                        value="Submit"
-                        className="btn btn-primary"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </form>
-
-              <button
-                type="button"
-                onClick={signInGoogle}
-                className="btn btn-danger"
-              >
-                <i className="bi bi-google"></i> Sign In with Google
-              </button>
-
-              <div className="mt-3">
-                Don't have an account?{" "}
-                <Link to="/register">Register Here!</Link>
+            <div className="col-md-12">
+              <div className="form-group">
+                <input
+                  type="submit"
+                  value="Submit"
+                  className="btn btn-primary w-100"
+                />
               </div>
             </div>
           </div>
+        </form>
 
-          <div className="col-md-5 d-flex align-items-stretch">
-            <div className="info-wrap w-100 p-5 img" />
-          </div>
+        <button
+          type="button"
+          onClick={signInGoogle}
+          className="btn btn-danger w-100"
+        >
+          <i className="bi bi-google"></i> Sign In with Google
+        </button>
+
+        <div className="mt-3 text-center">
+          Don't have an account? <Link to="/register">Register Here!</Link>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+            
     </>
   );
 }

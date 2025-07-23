@@ -3,6 +3,7 @@ import { useState } from "react";
 import { db } from "../../../Firebase";
 import { toast } from "react-toastify";
 
+
 export default function AddJobs() {
   const [jobName, setJobName] = useState("");
   const [location, setLocation] = useState("");
@@ -30,7 +31,7 @@ export default function AddJobs() {
     };
 
     try {
-      await addDoc(collection(db, "breeds"), data);
+      await addDoc(collection(db, "jobs"), data);
       toast.success("Job added successfully!");
 
       // Reset form fields
@@ -91,7 +92,7 @@ export default function AddJobs() {
                       <input
                         type="submit"
                         value="Submit"
-                        className="btn btn-primary"
+                        className="btn btn-primary "
                       />
                       <div className="submitting" />
                     </div>

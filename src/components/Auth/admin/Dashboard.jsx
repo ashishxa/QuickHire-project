@@ -1,7 +1,7 @@
-export default function AdminDashboard(){
+export default function Dashborad(){
     return(
         <>
-         <section
+        <section
     className="section-hero overlay inner-page bg-image"
     style={{ backgroundImage: 'url(/assets/images/hero_1.jpg)' }}
     id="home-section"
