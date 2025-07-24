@@ -28,6 +28,7 @@ import CompanyDashboard from "./components/pages/CompanyDashboard";
 import ManageJobs from "./components/company/jobs/ManageJobs";
 import ManageUser from "./components/company/jobs/ManageUser";
 import Dashborad from "./components/Auth/admin/Dashboard";
+import UpdateJobs from "./components/company/jobs/UpdateJobs";
 
 
 
@@ -69,7 +70,9 @@ function App() {
          <Route path="/company" element={<CompanyLayout/>}>
          <Route index element={<CompanyDashboard/>}/>
         <Route path="jobs/add" element={<AddJobs/>}/>
-        <Route path="managejobs" element={<ManageJobs/>}/>
+        <Route path="jobs/edit/:id" element={<UpdateJobs/>}/>
+        <Route path="jobs/managejobs" element={<ManageJobs/>}/>
+        
         <Route path="manageuser" element={<ManageUser/>}/>
 
         </Route>
