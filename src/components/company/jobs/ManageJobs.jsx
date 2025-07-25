@@ -11,41 +11,50 @@ export default function Managejobs() {
   const [load, setLoad] = useState(true);
   const [AllJobs, setAllJobs] = useState([]);
 
-  const fetchData = () => {
-    const q = query(collection(db, "jobs"));
-    onSnapshot(q, (jobData) => {
-      const data = jobData.docs.map((el) => {
-        return { id: el.id, ...el.data() };
-      });
-      setAllJobs(data);
-      setLoad(false);
-    });
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const DeleteJobs = (JobsId) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await deleteDoc(doc(db, "jobs", JobsId))
-          .then(() => {
-            Swal.fire("Deleted!", "Job has been deleted.", "success");
+  const fetchData=()=>{
+          const q=query(collection(db,"jobs")
+          // ,where("type","==","Dog")
+      ) 
+          onSnapshot(q,(breedData)=>{
+              setAllJobs(
+                  jobData.docs.map((el)=>{
+                  // console.log(el.id,el.data());
+                  return{id:el.id,...el.data()}
+              }))
+              setLoad(false)
           })
-          .catch((error) => {
-            toast.error(error.message);
-          });
       }
-    });
+  
+      useEffect(()=>{
+          fetchData()
+      },[])
+
+  const DeleteJob= (JobId)=>{
+         
+          Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+          }).then(async (result) => {
+          if (result.isConfirmed) {
+              await deleteDoc(doc(db,"jobs",JobId))
+              .then(()=>{
+                  Swal.fire({
+                  title: "Deleted!",
+                  text: "Your file has been deleted.",
+                  icon: "success"
+                  });
+  
+              }).catch((error)=>{
+                  toast.error(error.message)
+              })
+             
+          }
+          });
   };
 
   return (
@@ -125,7 +134,7 @@ export default function Managejobs() {
                           <Link to={`/company/jobs/edit/${el.id}`} className="btn btn-outline-success mx-2">
                             Edit
                           </Link>
-                          <button className="btn btn-danger" onClick={() => DeleteBreed(el.id)}>
+                          <button className="btn btn-danger" onClick={() => DeleteJob(el.id)}>
                             Delete
                           </button>
                         </td>

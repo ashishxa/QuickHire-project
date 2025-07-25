@@ -7,7 +7,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { auth, db } from "../../Firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, Timestamp } from "firebase/firestore";
 
 export default function Login() {
   const [email, setEmail] = useState("admin@gmail.com");
@@ -28,10 +28,10 @@ export default function Login() {
   };
 
   const getUserData = async (userId) => {
-    try {
-      const userDoc = await getDoc(doc(db, "users", userId));
-      const userData = userDoc.data();
+    const userDoc = await getDoc(doc(db, "users", userId));
+    const userData = userDoc.data();
 
+    if (userData?.status) {
       sessionStorage.setItem("name", userData?.name);
       sessionStorage.setItem("email", userData?.email);
       sessionStorage.setItem("userType", userData?.userType);
@@ -40,14 +40,14 @@ export default function Login() {
 
       toast.success("Login successfully");
 
-      if (userData?.userType == 1) {
+      if (userData.userType === 1) {
         navigate("/admin");
-      } else if (userData?.userType == 2) {
+      } else if (userData.userType === 2) {
         navigate("/company");
       } else {
         navigate("/");
       }
-    } catch (err) {
+    } else {
       toast.error("User data not found");
     }
   };
@@ -57,11 +57,31 @@ export default function Login() {
     signInWithPopup(auth, provider)
       .then((userCred) => {
         const userId = userCred.user.uid;
-        getUserData(userId);
+        saveData(userId, userCred);
       })
       .catch((err) => {
         toast.error(err.message);
       });
+  };
+
+  const saveData = async (userId, userCred) => {
+    try {
+      const data = {
+        name: userCred.user.displayName,
+        email: userCred.user.email,
+        contact: userCred.user.phoneNumber,
+        userId,
+        userType: 3,
+        status: true,
+        createdAt: Timestamp.now(),
+      };
+
+      await setDoc(doc(db, "users", userId), data);
+      toast.success("Register successfully!!");
+      getUserData(userId);
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
   return (
@@ -87,67 +107,65 @@ export default function Login() {
       </section>
 
       <div className="container my-5">
-  <div className="row justify-content-center">
-    <div className="col-md-6">
-      <div className="contact-wrap p-md-5 p-4 shadow rounded bg-white">
-        <h3 className="mb-4 text-center">Login Quick Hire</h3>
-        <form onSubmit={handleForm} className="contactForm">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="form-group">
-                <label htmlFor="email">Email Address</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-            </div>
+        <div className="row justify-content-center">
+          <div className="col-md-6">
+            <div className="contact-wrap p-md-5 p-4 shadow rounded bg-white">
+              <h3 className="mb-4 text-center">Login Quick Hire</h3>
+              <form onSubmit={handleForm} className="contactForm">
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="form-group">
+                      <label>Email Address</label>
+                      <input
+                        type="email"
+                        className="form-control"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
+                  </div>
 
-            <div className="col-md-12">
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-            </div>
+                  <div className="col-md-12">
+                    <div className="form-group">
+                      <label>Password</label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </div>
+                  </div>
 
-            <div className="col-md-12">
-              <div className="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  className="btn btn-primary w-100"
-                />
+                  <div className="col-md-12">
+                    <div className="form-group">
+                      <input
+                        type="submit"
+                        value="Submit"
+                        className="btn btn-primary w-100"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+              <button
+                type="button"
+                onClick={signInGoogle}
+                className="btn btn-danger w-100"
+              >
+                <i className="bi bi-google"></i> Sign In with Google
+              </button>
+
+              <div className="mt-3 text-center">
+                Don't have an account? <Link to="/register">Register Here!</Link>
               </div>
             </div>
           </div>
-        </form>
-
-        <button
-          type="button"
-          onClick={signInGoogle}
-          className="btn btn-danger w-100"
-        >
-          <i className="bi bi-google"></i> Sign In with Google
-        </button>
-
-        <div className="mt-3 text-center">
-          Don't have an account? <Link to="/register">Register Here!</Link>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-
-            
     </>
   );
 }

@@ -19,16 +19,21 @@ import Layout from "./components/layouts/Layout";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import { ToastContainer } from "react-toastify";
-import AdminLayout from "./components/Layouts/AdminLayout";
-
-
 import AddJobs from "./components/company/jobs/AddJobs";
-import CompanyLayout from "./components/Layouts/CompanyLayout";
-import CompanyDashboard from "./components/pages/CompanyDashboard";
 import ManageJobs from "./components/company/jobs/ManageJobs";
 import ManageUser from "./components/company/jobs/ManageUser";
-import Dashborad from "./components/Auth/admin/Dashboard";
 import UpdateJobs from "./components/company/jobs/UpdateJobs";
+import Dashboard from "./components/company/pages/Dashboard";
+import CompanyLayout from "./components/Layouts/CompanyLayout";
+import ViewApp from "./components/company/jobs/ViewApp";
+import AdminDashboard from "./components/admin/page/AdminDashboard";
+import AdminLayout from "./components/Layouts/AdminLayout";
+import AManageUser from "./components/admin/jobs/AManageUser";
+import RecentJobs from "./components/admin/jobs/RecentJobs";
+import AManageCompany from "./components/admin/jobs/AManageCompany";
+import AManageJobs from "./components/admin/jobs/AManageJobs";
+import ViewApplication from "./components/admin/jobs/ViewAppplication";
+
 
 
 
@@ -62,17 +67,21 @@ function App() {
         </Route>
         {/* <Route path="/admin" element={<Admin/>}> */}
         <Route path="/admin" element={<AdminLayout/>}>
-            <Route index element={<Dashborad/>}/>
-        
-           
+         <Route index element={<AdminDashboard/>}/>
+         <Route path="jobs/manageuse" element={<AManageUser/>}/>
+         <Route path="jobs/recentjob" element={<RecentJobs/>}/>
+           <Route path="jobs/managecompany" element={<AManageCompany/>}/>
+          <Route path="jobs/managejob" element={<AManageJobs/>}/>
+            <Route path="jobs/viewapplication" element={<ViewApplication/>}/>
+  
         </Route>
         
          <Route path="/company" element={<CompanyLayout/>}>
-         <Route index element={<CompanyDashboard/>}/>
+         <Route index element={<Dashboard/>}/>
         <Route path="jobs/add" element={<AddJobs/>}/>
         <Route path="jobs/edit/:id" element={<UpdateJobs/>}/>
         <Route path="jobs/managejobs" element={<ManageJobs/>}/>
-        
+        <Route path="viewapp" element={<ViewApp/>}/>
         <Route path="manageuser" element={<ManageUser/>}/>
 
         </Route>

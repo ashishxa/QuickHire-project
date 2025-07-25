@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
-export default function UpdateBreed() {
+export default function UpdateJobs() {
   const { id } = useParams();
   const [jobTitle, setJobTitle] = useState("");
   const [vacancy, setVacancy] = useState("");
@@ -56,7 +56,7 @@ export default function UpdateBreed() {
     if (image && imageName) {
       const formData = new FormData();
       formData.append("file", image);
-      formData.append("upload_preset", "trave4u");
+      formData.append("upload_preset", "quickHire");
 
       try {
         const response = await axios.post(
