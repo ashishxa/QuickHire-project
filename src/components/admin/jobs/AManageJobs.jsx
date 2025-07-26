@@ -1,42 +1,57 @@
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { deleteDoc, doc, collection, onSnapshot, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../../Firebase";
-import { PacmanLoader } from "react-spinners";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom"; // Link is required for "Add New +" button
 
-export default function AManagejobs() {
+export default function AManageJobs() {
+  const [allJobs, setAllJobs] = useState([]);
   const [load, setLoad] = useState(true);
-  const [AllJobs, setAllJobs] = useState([]);
-  const [applicationsMap, setApplicationsMap] = useState({});
 
+  // ✅ Fetch jobs in real-time from Firebase
   const fetchData = () => {
-    const jobQuery = query(collection(db, "jobs"));
-    const appQuery = query(collection(db, "applications"));
-
-    onSnapshot(jobQuery, (jobData) => {
-      const jobs = jobData.docs.map((el) => ({
-        id: el.id,
-        ...el.data(),
-      }));
-      setAllJobs(jobs);
+    const q = query(collection(db, "jobs"));
+    onSnapshot(q, (jobData) => {
+      setAllJobs(
+        jobData.docs.map((el) => {
+          return { id: el.id, ...el.data() };
+        })
+      );
       setLoad(false);
-    });
-
-    onSnapshot(appQuery, (appData) => {
-      const appCounts = {};
-      appData.docs.forEach((doc) => {
-        const data = doc.data();
-        const jobId = data.jobId;
-        if (jobId) {
-          appCounts[jobId] = (appCounts[jobId] || 0) + 1;
-        }
-      });
-      setApplicationsMap(appCounts);
     });
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  // ✅ Delete job with confirmation alert
+  const DeleteJobs = (jobId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteDoc(doc(db, "jobs", jobId))
+          .then(() => {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your job has been deleted.",
+              icon: "success",
+            });
+          })
+          .catch((error) => {
+            toast.error("Delete failed: " + error.message);
+          });
+      }
+    });
+  };
 
   return (
     <>
@@ -47,7 +62,7 @@ export default function AManagejobs() {
       >
         <div className="container">
           <div className="row">
-            <div className="col-md-7">
+            <div className="col-md-12">
               <h1 className="text-white font-weight-bold">Manage Jobs</h1>
               <div className="custom-breadcrumbs">
                 <a href="/">Home</a> <span className="mx-2 slash">/</span>
@@ -59,49 +74,81 @@ export default function AManagejobs() {
       </section>
 
       <div className="container my-5">
-        {load ? (
-          <PacmanLoader
-            color="#00BD56"
-            size={30}
-            cssOverride={{ display: "block", margin: "0 auto" }}
-            loading={load}
-          />
-        ) : (
-          <div className="row justify-content-center no-gutters">
-            <div className="col-md-12" style={{ boxShadow: "0px 0px 15px gray" }}>
-              <div className="contact-wrap w-100 p-md-5 p-4">
-                <h3 className="mb-4">Manage Jobs</h3>
-                <table className="table table-striped">
-                  <thead className="table-dark">
+        <div className="row justify-content-center">
+          <div className="col-md-12" style={{ boxShadow: "0 0 15px gray" }}>
+            <div className="d-flex justify-content-end p-2">
+              <Link to="/company/addjobs" className="btn btn-outline-primary">
+                Add New +
+              </Link>
+            </div>
+            <div className="contact-wrap w-100 p-md-5 p-4">
+              <h3 className="mb-4">All Job Posts</h3>
+
+              {/* ✅ Responsive Table */}
+              <div className="table-responsive">
+                <table className="table table-bordered table-striped text-center">
+                  <thead className="bg-dark text-white">
                     <tr>
                       <th>#</th>
-                      <th>Job</th>
+                      <th>Title</th>
                       <th>Vacancy</th>
                       <th>Location</th>
-                      <th>Salary</th>
                       <th>Skills</th>
-                      <th>Applications</th>
+                      <th>Experience</th>
+                      <th>Salary</th>
+                      <th>Description</th>
+                      <th>Image</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {AllJobs.map((el, index) => (
-                      <tr key={el.id}>
+                    {allJobs.map((job, index) => (
+                      <tr key={job.id}>
                         <td>{index + 1}</td>
-                        <td>{el.jobtTitle}</td>
-                        <td>{el.vacancy}</td>
-                        <td>{el.location}</td>
-                        <td>{el.salary}</td>
-                        <td>{el.skills}</td>
-                        <td>{applicationsMap[el.id] || 0}</td>
+                        <td>{job.jobTitle || "N/A"}</td>
+                        <td>{job.vacancy || "N/A"}</td>
+                        <td>{job.location || "N/A"}</td>
+                        <td>{job.skills || "N/A"}</td>
+                        <td>{job.experience || "N/A"}</td>
+                        <td>{job.salary || "N/A"}</td>
+                        <td>{job.description || "N/A"}</td>
+                        <td>
+                          {job.image ? (
+                            <img
+                              src={job.image}
+                              alt="Job"
+                              style={{ width: "60px", height: "60px", objectFit: "cover" }}
+                              className="rounded"
+                            />
+                          ) : (
+                            "No Image"
+                          )}
+                        </td>
+                        <td>
+                          <button
+                            className="btn btn-danger btn-sm"
+                            onClick={() => DeleteJobs(job.id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
                       </tr>
                     ))}
+                    {allJobs.length === 0 && (
+                      <tr>
+                        <td colSpan="10" className="text-muted">
+                          No jobs found.
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
+              {/* End table */}
             </div>
           </div>
-        )}
+        </div>
       </div>
-    </>
-  );
+    </>
+  );
 }
