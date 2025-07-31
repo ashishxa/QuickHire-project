@@ -102,7 +102,7 @@ export default function ViewApplication() {
                             to={`/admin/applications/${app.id}`}
                             className="btn btn-sm btn-info"
                           >
-                            View
+                            View Details
                           </Link>
                         </td>
                       </tr>

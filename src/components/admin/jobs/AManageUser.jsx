@@ -1,21 +1,23 @@
-import { collection, doc, onSnapshot, query, updateDoc } from "firebase/firestore";
+import { collection, doc, onSnapshot, query, updateDoc, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { PacmanLoader } from "react-spinners";
 import { db } from "../../../Firebase";
 import Switch from "react-switch";
 import Swal from "sweetalert2";
-import { toast } from "react-toastify";
 
 export default function AManageUser() {
   const [load, setLoad] = useState(false);
   const [users, setUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 5;
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = () => {
-    let q = query(collection(db, "users"));
+    let q = query(collection(db, "users"),where("userType","==",3)
+  );
     onSnapshot(q, (userCol) => {
       setUsers(
         userCol.docs.map((el) => {
@@ -52,6 +54,12 @@ export default function AManageUser() {
       }
     });
   };
+
+  // Pagination logic
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(users.length / usersPerPage);
 
   return (
     <>
@@ -95,25 +103,17 @@ export default function AManageUser() {
                       <th>Full Name</th>
                       <th>Email</th>
                       <th>Contact</th>
-                      <th>Qualification</th>
-                      <th>Skills</th>
                       <th>Status</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {users?.map((el, index) => (
+                    {currentUsers.map((el, index) => (
                       <tr key={el.id}>
-                        <td>{index + 1}</td>
+                        <td>{indexOfFirstUser + index + 1}</td>
                         <td>{el?.name}</td>
                         <td>{el?.email}</td>
                         <td>{el?.contact}</td>
-                        <td>{el?.qualification || "N/A"}</td>
-                        <td>
-                          {Array.isArray(el?.skills)
-                            ? el.skills.join(", ")
-                            : el?.skills || "N/A"}
-                        </td>
                         <td>{el?.status ? "Active" : "In-active"}</td>
                         <td>
                           <Switch
@@ -125,8 +125,37 @@ export default function AManageUser() {
                         </td>
                       </tr>
                     ))}
+                    {currentUsers.length === 0 && (
+                      <tr>
+                        <td colSpan="6" className="text-muted text-center">
+                          No users found.
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
+
+                {/* Pagination */}
+                <div className="d-flex justify-content-center mt-4">
+                  <nav>
+                    <ul className="pagination">
+                      {[...Array(totalPages)].map((_, idx) => (
+                        <li
+                          key={idx}
+                          className={`page-item ${currentPage === idx + 1 ? "active" : ""}`}
+                        >
+                          <button
+                            className="page-link"
+                            onClick={() => setCurrentPage(idx + 1)}
+                          >
+                            {idx + 1}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                </div>
+                {/* End pagination */}
               </div>
             </div>
           </div>

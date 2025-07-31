@@ -45,16 +45,18 @@ export default function CompanyHeader() {
 
             <nav className="mx-auto site-navigation">
               <ul className="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
-                <li><Link to="/" className="nav-Link">Home</Link></li>
+                
                 <li><Link to="jobs/add">Add Jobs</Link></li>
                 <li className="has-children">
                   <Link to="#">Jobs</Link>
                   <ul className="dropdown">
+
                     <li><Link to="jobs/managejobs">Manage Jobs</Link></li>
                     <li><Link to="manageuser">Manage User</Link></li>
+                    
                   </ul>
                 </li>
-                <li><Link to="viewapp">View App</Link></li>
+                <li><Link to="viewapp">View Application</Link></li>
                 <li>
                   <Link to="/login" className="nav-Link" onClick={logout}>
                     Logout

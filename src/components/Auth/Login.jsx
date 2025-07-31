@@ -94,11 +94,11 @@ export default function Login() {
         <div className="container">
           <div className="row">
             <div className="col-md-7">
-              <h1 className="text-white font-weight-bold">Login</h1>
+              <h1 className="text-white font-weight-bold">Account Login</h1>
               <div className="custom-breadcrumbs">
                 <a href="/">Home</a> <span className="mx-2 slash">/</span>
                 <span className="text-white">
-                  <strong>Login</strong>
+                  <strong>Account Login</strong>
                 </span>
               </div>
             </div>
@@ -110,7 +110,7 @@ export default function Login() {
         <div className="row justify-content-center">
           <div className="col-md-6">
             <div className="contact-wrap p-md-5 p-4 shadow rounded bg-white">
-              <h3 className="mb-4 text-center">Login Quick Hire</h3>
+              <h3 className="mb-4 text-center">Sign in to Quick Hire</h3>
               <form onSubmit={handleForm} className="contactForm">
                 <div className="row">
                   <div className="col-md-12">
@@ -143,7 +143,7 @@ export default function Login() {
                     <div className="form-group">
                       <input
                         type="submit"
-                        value="Submit"
+                        value="Login"
                         className="btn btn-primary w-100"
                       />
                     </div>

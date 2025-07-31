@@ -46,7 +46,9 @@ export default function AddJobs(){
     const saveData=async (imageUrl)=>{
          try{
             //insertion 
+            let userEmail = sessionStorage.getItem("email");
             let data={
+              CompanyId:sessionStorage.getItem("userId"),
         jobTitle,
         vacancy,
         location,
@@ -58,11 +60,12 @@ export default function AddJobs(){
         image: imageUrl,
         status: true,
         createdAt: Timestamp.now(),
+        email: userEmail,
             }
             // console.log(data);
             //addDoc(collection(db, "collectionName"), data)
-            await addDoc(collection(db, "breeds"), data)
-            toast.success("Breed added successfully!")
+            await addDoc(collection(db, "jobs"), data)
+            toast.success("Job added successfully!")
             setJobTitle("")
             setDescription("")
             setSkills("")

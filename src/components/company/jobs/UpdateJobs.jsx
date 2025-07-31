@@ -22,23 +22,32 @@ export default function UpdateJobs() {
   const nav = useNavigate();
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (id) fetchData();
+    else toast.error("Invalid job ID");
+  }, [id]);
 
   const fetchData = async () => {
     try {
-      const jobDoc = await getDoc(doc(db, "jobs", id));
-      const jobData = jobDoc.data();
-      setJobTitle(jobData.jobTitle);
-      setVacancy(jobData.vacancy);
-      setLocation(jobData.location);
-      setSkills(jobData.skills);
-      setDescription(jobData.description);
-      setSalary(jobData.salary);
-      setExperience(jobData.experience);
-      setQualification(jobData.qualification);
+      const jobRef = doc(db, "jobs", id);
+      const jobSnap = await getDoc(jobRef);
+
+      if (!jobSnap.exists()) {
+        toast.error("Job not found.");
+        return;
+      }
+
+      const jobData = jobSnap.data();
+      setJobTitle(jobData.jobTitle || "");
+      setVacancy(jobData.vacancy || "");
+      setLocation(jobData.location || "");
+      setSkills(jobData.skills || "");
+      setDescription(jobData.description || "");
+      setSalary(jobData.salary || "");
+      setExperience(jobData.experience || "");
+      setQualification(jobData.qualification || "");
       setPreviousImg(jobData.image || "");
     } catch (err) {
+      console.error("Error while fetching job data:", err);
       toast.error("Error fetching job data.");
     }
   };
@@ -92,7 +101,7 @@ export default function UpdateJobs() {
       toast.success("Job updated successfully!");
       nav("/company/jobs/managejobs");
     } catch (err) {
-      toast.error(err.message);
+      toast.error("Failed to update job: " + err.message);
     }
   };
 
@@ -109,9 +118,7 @@ export default function UpdateJobs() {
               <h1 className="text-white font-weight-bold">Update Jobs</h1>
               <div className="custom-breadcrumbs">
                 <a href="/">Home</a> <span className="mx-2 slash">/</span>
-                <span className="text-white">
-                  <strong>Update Jobs</strong>
-                </span>
+                <span className="text-white"><strong>Update Jobs</strong></span>
               </div>
             </div>
           </div>
@@ -128,8 +135,8 @@ export default function UpdateJobs() {
                 <img
                   src={previousImg}
                   alt="Previous"
-                  style={{ height: "100px", width: "100px" }}
-                  className="d-block mx-auto rounded-circle"
+                  style={{ height: "100px", width: "100px", objectFit: "cover" }}
+                  className="d-block mx-auto rounded-circle mb-3"
                 />
               )}
 

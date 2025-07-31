@@ -3,20 +3,24 @@ import { useEffect, useState } from "react";
 import { db } from "../../../Firebase";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom"; // Link is required for "Add New +" button
+import { Link } from "react-router-dom";
 
 export default function ManageJobs() {
   const [allJobs, setAllJobs] = useState([]);
   const [load, setLoad] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const jobsPerPage = 5;
 
-  // ✅ Fetch jobs in real-time from Firebase
   const fetchData = () => {
+    const userEmail = sessionStorage.getItem("email");
     const q = query(collection(db, "jobs"));
     onSnapshot(q, (jobData) => {
       setAllJobs(
-        jobData.docs.map((el) => {
-          return { id: el.id, ...el.data() };
-        })
+        jobData.docs
+          .map((el) => {
+            return { id: el.id, ...el.data() };
+          })
+          .filter((job) => job.email === userEmail)
       );
       setLoad(false);
     });
@@ -26,7 +30,6 @@ export default function ManageJobs() {
     fetchData();
   }, []);
 
-  // ✅ Delete job with confirmation alert
   const DeleteJobs = (jobId) => {
     Swal.fire({
       title: "Are you sure?",
@@ -52,6 +55,11 @@ export default function ManageJobs() {
       }
     });
   };
+
+  const indexOfLastJob = currentPage * jobsPerPage;
+  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+  const currentJobs = allJobs.slice(indexOfFirstJob, indexOfLastJob);
+  const totalPages = Math.ceil(allJobs.length / jobsPerPage);
 
   return (
     <>
@@ -84,7 +92,6 @@ export default function ManageJobs() {
             <div className="contact-wrap w-100 p-md-5 p-4">
               <h3 className="mb-4">All Job Posts</h3>
 
-              {/* ✅ Responsive Table */}
               <div className="table-responsive">
                 <table className="table table-bordered table-striped text-center">
                   <thead className="bg-dark text-white">
@@ -99,12 +106,13 @@ export default function ManageJobs() {
                       <th>Description</th>
                       <th>Image</th>
                       <th>Action</th>
+                      <th>Applicant</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {allJobs.map((job, index) => (
+                    {currentJobs.map((job, index) => (
                       <tr key={job.id}>
-                        <td>{index + 1}</td>
+                        <td>{indexOfFirstJob + index + 1}</td>
                         <td>{job.jobTitle || "N/A"}</td>
                         <td>{job.vacancy || "N/A"}</td>
                         <td>{job.location || "N/A"}</td>
@@ -125,16 +133,24 @@ export default function ManageJobs() {
                           )}
                         </td>
                         <td>
+                          <Link to={`/company/jobs/edit/${job.id}`} className="btn btn-outline-success mx-2">
+                            Edit
+                          </Link>
                           <button
                             className="btn btn-danger btn-sm"
                             onClick={() => DeleteJobs(job.id)}
                           >
                             Delete
                           </button>
+
                         </td>
+                        <td><Link to={`/company/viewapp/${job.id}`} className="btn btn-outline-success mx-2">
+                            Edit
+                          </Link></td>
                       </tr>
+                     
                     ))}
-                    {allJobs.length === 0 && (
+                    {currentJobs.length === 0 && (
                       <tr>
                         <td colSpan="10" className="text-muted">
                           No jobs found.
@@ -144,11 +160,28 @@ export default function ManageJobs() {
                   </tbody>
                 </table>
               </div>
-              {/* End table */}
+
+              <div className="d-flex justify-content-center mt-4">
+                <nav>
+                  <ul className="pagination">
+                    {[...Array(totalPages)].map((_, idx) => (
+                      <li
+                        key={idx}
+                        className={`page-item ${currentPage === idx + 1 ? "active" : ""}`}
+                      >
+                        <button onClick={() => setCurrentPage(idx + 1)} className="page-link">
+                          {idx + 1}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </div>
+              {/* End pagination */}
             </div>
           </div>
         </div>
       </div>
-    </>
-  );
+    </>
+  );
 }

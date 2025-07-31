@@ -3,13 +3,22 @@ import { useState } from "react"
 import { auth, db } from "../../Firebase"
 import { toast } from "react-toastify"
 import { doc, getDoc, setDoc, Timestamp } from "firebase/firestore"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation, Link } from "react-router-dom"
 
 export default function Register(){
   const [name, setName]=useState("")
   const [email, setEmail]=useState("")
   const [password, setPassword]=useState("")
   const [contact, setContact]=useState("")
+  const nav=useNavigate()
+  const location = useLocation();
+
+  // Get userType from query string, default to 3
+  const queryParams = new URLSearchParams(location.search);
+  const userTypeFromQuery = parseInt(queryParams.get("userType"), 10);
+  const isEmployer = userTypeFromQuery === 2;
+  const userType = isEmployer ? 2 : 3;
+
   const handleForm=(e)=>{
     e.preventDefault()
     createUserWithEmailAndPassword(auth, email, password)
@@ -29,7 +38,7 @@ export default function Register(){
         email:email,
         contact:contact,
         userId:userId,
-        userType:3, 
+        userType: userType, 
         status:true, 
         createdAt:Timestamp.now()
       }
@@ -42,7 +51,6 @@ export default function Register(){
       toast.error(err.message)
     }
   }
-  const nav=useNavigate()
     const getUserData=async (userId)=>{
      let userDoc=await getDoc(doc(db,"users", userId))
      let userData=userDoc.data()
@@ -54,6 +62,8 @@ export default function Register(){
      toast.success("Login successfully")
      if(userData?.userType==1){
       nav("/admin")
+     }else if(userData?.userType==2){
+      nav("/company")
      }else{
       nav("/")
      }
@@ -69,13 +79,18 @@ export default function Register(){
     <div className="container">
       <div className="row">
         <div className="col-md-7">
-          <h1 className="text-white font-weight-bold">Register</h1>
+          <h1 className="text-white font-weight-bold">{isEmployer ? "Employer Registration" : "Job Seeker Registration"}</h1>
           <div className="custom-breadcrumbs">
-            <a href="index.html">Home</a> <span className="mx-2 slash">/</span>
+            <a href="/">Home</a> <span className="mx-2 slash">/</span>
             <span className="text-white">
-              <strong>Register</strong>
+              <strong>{isEmployer ? "Employer Registration" : "Job Seeker Registration"}</strong>
             </span>
           </div>
+          {isEmployer && (
+            <div className="alert alert-info mt-3">
+              <strong>You are registering as an Employer</strong>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -83,10 +98,10 @@ export default function Register(){
             <div className="container my-5">
                 
                 {/* contact form  */}
-                     <div className="row no-gutters">
-              <div className="col-md-7">
-                <div className="contact-wrap w-100 p-md-5 p-4">
-                  <h3 className="mb-4">Register</h3>
+                <div className="row justify-content-center">
+                  <div className="col-md-6">
+                    <div className="contact-wrap p-md-5 p-4 shadow rounded bg-white">
+                  <h3 className="mb-4 text-center">{isEmployer ? "Register as Employer" : "Register as Job Seeker"}</h3>
                   <form
                     method="POST"
                     id="contactForm"
@@ -173,22 +188,25 @@ export default function Register(){
                         <div className="form-group">
                           <input
                             type="submit"
-                            defaultValue="Submit"
-                            className="btn btn-primary"
+                            value={isEmployer ? "Register as Employer" : "Register as Job Seeker"}
+                            className="btn btn-primary w-100"
                           />
                           <div className="submitting" />
                         </div>
                       </div>
+                      
+                      {isEmployer && (
+                         <div className="col-md-12">
+                           <div className="mt-3 text-center">
+                             Already have an account? <Link to="/login">Login as Employer</Link>
+                           </div>
+                         </div>
+                       )}
                     </div>
                   </form>
                 </div>
               </div>
-              <div className="col-md-5 d-flex align-items-stretch">
-                <div
-                  className="info-wrap w-100 p-5 img"
-                  style={{ backgroundImage: "url(/assets/images/img.jpg)" }}
-                ></div>
-              </div>
+
             </div>
             </div>
         </>
