@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Nunito:200,300,400,700");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 .site-navbar {
   margin-bottom: 0px;
   z-index: 1999;
@@ -403,6 +404,7 @@
     padding-bottom: 10px !important; }
 
 body {
+  font-family: "Inter", sans-serif;
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.7;
@@ -427,8 +429,10 @@ body {
       opacity: 1;
       visibility: visible; }
 
-h1, h2, h3, h4 {
-  color: #000; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  color: #1e293b; }
 
 .site-section {
   padding-top: 7rem;
@@ -915,10 +919,17 @@ h1, h2, h3, h4 {
   box-shadow: none !important; }
 
 .btn.btn-primary {
-  color: #fff; }
+  background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+  border-color: #3b82f6;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  transition: all 0.3s ease; }
   .btn.btn-primary:hover {
-    background: #90c317;
-    border-color: #90c317; }
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+    border-color: #1e40af;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    color: #fff; }
 
 .btn.btn-outline-white {
   background: transparent;
@@ -930,10 +941,12 @@ h1, h2, h3, h4 {
     color: #000; }
 
 .btn.btn-outline-primary {
-  color: #89ba16; }
+  color: #3b82f6;
+  border-color: #3b82f6; }
   .btn.btn-outline-primary:hover {
     color: #fff;
-    background: #89ba16; }
+    background: #3b82f6;
+    border-color: #3b82f6; }
 
 .custom-pagination a {
   width: 30px;
@@ -953,9 +966,9 @@ h1, h2, h3, h4 {
     padding-right: 10px;
     border-radius: 4px; }
   .custom-pagination a.active, .custom-pagination a:hover {
-    background: #89ba16;
+    background: #3b82f6;
     color: #fff;
-    border-color: #89ba16; }
+    border-color: #3b82f6; }
 
 .border-width-2 {
   border-width: 2px !important; }

@@ -6,7 +6,7 @@ import Contact from "./components/Contact";
 import About from "./components/pages/About";
 
 import Error from "./components/pages/Error";
-import Layout from "./components/layouts/Layout";
+import Layout from "./components/Layouts/Layout";
 
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
@@ -14,6 +14,7 @@ import { ToastContainer } from "react-toastify";
 
 import AddJobs from "./components/company/jobs/AddJobs";
 import ManageJobs from "./components/company/jobs/ManageJobs";
+import UpdateJobs from "./components/company/jobs/UpdateJobs";
 
 import Dashboard from "./components/company/pages/Dashboard";
 import CompanyLayout from "./components/Layouts/CompanyLayout";
@@ -29,8 +30,11 @@ import AManageJobs from "./components/admin/jobs/AManageJobs";
 import ViewApplication from "./components/admin/jobs/ViewAppplication";
 import AdminApplicationDetails from "./components/admin/jobs/ApplicationDetails";
 import CompanyApplicationDetails from "./components/company/jobs/ApplicationDetails";
-import Jobs from "./components/pages/jobs";
+import Jobs from "./components/pages/Jobs";
 import JobApply from "./components/company/jobs/JobApply";
+import UserDashboard from "./components/pages/UserDashboard";
+import UserProfile from "./components/pages/UserProfile";
+import UserApplicationDetails from "./components/pages/UserApplicationDetails";
 
 function App() {
   return (
@@ -43,12 +47,15 @@ function App() {
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
-              <Route path="/jobs" element={<Jobs/>
-              } />        
+            <Route path="jobs" element={<Jobs />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="ApplyJobs/:id" element={<JobApply />} />
             <Route path="applications/:applicationId" element={<CompanyApplicationDetails />} />
+            <Route path="dashboard" element={<UserDashboard />} />
+            <Route path="profile" element={<UserProfile />} />
+            <Route path="applications" element={<ViewApplication />} />
+            <Route path="applications/:applicationId" element={<UserApplicationDetails />} />
           </Route>
 
           {/* Admin Routes */}
@@ -66,11 +73,10 @@ function App() {
           <Route path="/company" element={<CompanyLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="jobs/add" element={<AddJobs />} />
-           
+            <Route path="jobs/edit/:id" element={<UpdateJobs />} />
             <Route path="jobs/managejobs" element={<ManageJobs />} />
             <Route path="viewapp/:id" element={<ViewApp />} />
             <Route path="applications/:applicationId" element={<CompanyApplicationDetails />} />
-         
           </Route>
 
           {/* Catch-All Route */}

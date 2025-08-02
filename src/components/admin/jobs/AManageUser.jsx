@@ -63,17 +63,102 @@ export default function AManageUser() {
 
   return (
     <>
-      <section
-        className="section-hero overlay inner-page bg-image"
-        style={{ backgroundImage: "url(/assets/images/hero_1.jpg)" }}
-        id="home-section"
-      >
+      <style>
+        {`
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+          
+          .dashboard-hero {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            padding: 80px 0 60px;
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .dashboard-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2V6h4V4H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.3;
+          }
+          
+          .content-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            margin-bottom: 2rem;
+            transition: all 0.4s ease;
+          }
+          
+          .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+          }
+          
+          .content-card h3 {
+            color: #1e293b;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+          }
+          
+          .content-card h3::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            border-radius: 2px;
+          }
+          
+          .table {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+          }
+          
+          .table thead th {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-weight: 600;
+          }
+          
+          .table tbody td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+            vertical-align: middle;
+          }
+          
+          .table tbody tr:hover {
+            background: rgba(59, 130, 246, 0.05);
+          }
+          
+          .pagination .page-item.active .page-link {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            border-color: #3b82f6;
+          }
+          
+          .pagination .page-link {
+            color: #3b82f6;
+          }
+        `}
+      </style>
+
+      <section className="dashboard-hero">
         <div className="container">
           <div className="row">
             <div className="col-md-7">
               <h1 className="text-white font-weight-bold">Manage User</h1>
               <div className="custom-breadcrumbs">
-                <a href="#">Home</a> <span className="mx-2 slash">/</span>
+                <Link to="/admin">Home</Link> <span className="mx-2 slash">/</span>
                 <span className="text-white">
                   <strong>Manage User</strong>
                 </span>
@@ -86,17 +171,17 @@ export default function AManageUser() {
       <div className="container my-5">
         {load ? (
           <PacmanLoader
-            color="#00BD56"
+            color="#3b82f6"
             size={30}
             cssOverride={{ display: "block", margin: "0 auto" }}
             loading={load}
           />
         ) : (
           <div className="row justify-content-center no-gutters">
-            <div className="col-md" style={{ boxShadow: "0px 0px 15px gray" }}>
-              <div className="contact-wrap table-responsive w-100 p-md-5 p-4">
+            <div className="col-md">
+              <div className="content-card table-responsive">
                 <h3 className="mb-4">Manage Users</h3>
-                <table className="table table-bordered table-hover table-striped">
+                <table className="table table-hover">
                   <thead className="table-dark">
                     <tr>
                       <th>Sno</th>
